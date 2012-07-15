@@ -1,4 +1,6 @@
 ﻿
+
+
 var RocknCoder = RocknCoder || {};
 RocknCoder.Pages = RocknCoder.Pages || {};
 
@@ -11,29 +13,15 @@ RocknCoder.Pages.Kernel = function (event) {
 	}
 };
 
-RocknCoder.Pages.Events = function () {
+RocknCoder.Pages.Events = (function () {
 	$("div[data-rockncoder-jspage]").on(
 		'pagebeforecreate pagecreate pagebeforeload pagebeforeshow pageshow pagebeforechange pagechange pagebeforehide pagehide pageinit',
-		RocknCoder.Pages.Kernel).on(
-		"pageinit", RocknCoder.hideAddressBar);
-} ();
+		RocknCoder.Pages.Kernel
+	);
+}());
 
-RocknCoder.Pages.page1 = function () {
-	var pageinit = function(){
-	},
-	pageshow = function () {
-	},
-	pagehide = function () {
-	};
-	return {
-		pageinit: pageinit,
-		pageshow: pageshow,
-		pagehide: pagehide
-	}
-}();
-
-RocknCoder.Pages.page2 = function () {
-	var pageinit = function(){
+RocknCoder.Pages.page1 = (function () {
+	var pageinit = function () {
 		},
 		pageshow = function () {
 		},
@@ -43,6 +31,20 @@ RocknCoder.Pages.page2 = function () {
 		pageinit: pageinit,
 		pageshow: pageshow,
 		pagehide: pagehide
-	}
-}();
+	};
+}());
+
+RocknCoder.Pages.page2 = (function () {
+	var pageinit = function () {
+		},
+		pageshow = function () {
+		},
+		pagehide = function () {
+		};
+	return {
+		pageinit: pageinit,
+		pageshow: pageshow,
+		pagehide: pagehide
+	};
+}());
 
