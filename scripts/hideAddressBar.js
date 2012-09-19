@@ -4,8 +4,14 @@ var RocknCoder = RocknCoder || {};
 RocknCoder.hideAddressBar = function() {
 	if (navigator.userAgent.match(/Android/i)) {
 		window.scrollTo(0, 0); // reset in case prev not scrolled
-		var nPageH = $(document).height();
-		var nViewH = window.outerHeight;
+		var nPageH = $(document).height(),
+			nViewH = window.outerHeight,
+			hideUrlBar = function () {
+				if (!pageYOffset) {
+					window.scrollTo(0, 1);
+				}
+			};
+
 		if (nViewH > nPageH) {
 			nViewH = nViewH / window.devicePixelRatio;
 			$('BODY').css('height', nViewH + 'px');
@@ -16,12 +22,6 @@ RocknCoder.hideAddressBar = function() {
 			setTimeout(hideUrlBar, 0);
 			setTimeout(hideUrlBar, 500);
 		}, false);
-
-		function hideUrlBar() {
-			if (!pageYOffset) {
-				window.scrollTo(0, 1);
-			}
-		}
 	}
 	return this;
 };
