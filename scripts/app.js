@@ -5,8 +5,8 @@
 
   RocknCoder.Pages = RocknCoder.Pages || {};
   // put the page events into one string
-  var Events = "pagebeforeshow pageshow pagebeforechange pagechange pagebeforehide pagehide",
-  // the kernel remains unchanged
+  var Events = "pagebeforeshow pageshow pagechange pagebeforehide pagehide",
+    DocEvents = "pagebeforechange orientationchange",
     Kernel = function (event) {
       var that = this,
         eventType = event.type,
@@ -15,7 +15,7 @@
         RocknCoder.Pages[pageName][eventType].call(that);
       }
     },
-    hookEvents = function (event) {
+    hookDocEvents = function (event) {
       // find the active page
       var activePage = $.mobile.activePage || $("div[data-rnc-jspage]").eq(0);
       Kernel.call(activePage, event);
@@ -23,22 +23,30 @@
 
   // anonymous function which binds to the page's events
   (function () {
-    $(document).on(Events, function (event) {
-      hookEvents(event);
+    $(document).on(DocEvents, function (event) {
+      hookDocEvents(event);
     });
+
+    $("div[data-rnc-jspage]").on(Events, Kernel);
   }());
 
   // anonymous function which binds to the document's pageload event
   (function () {
     $(document).bind(
       'pageload',
-      function (event, obj) {
+      function () {
         $(document)
           // to make sure we aren't double hooking events clear them all
-          .off(Events)
-          .on(Events, function (event) {
-            hookEvents(event);
+          .off(DocEvents)
+          .on(DocEvents, function (event) {
+            hookDocEvents(event);
           });
+
+        $("div[data-rnc-jspage]")
+          // to make sure we aren't double hooking events clear them all
+          .off(Events)
+          // then hook them all  (the newly loaded page is in DOM at this point)
+          .on(Events, Kernel);
       }
     );
   }());
