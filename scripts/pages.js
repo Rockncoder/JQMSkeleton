@@ -7,24 +7,26 @@ var RocknCoder = RocknCoder || {};
 	RocknCoder.Pages = RocknCoder.Pages || {};
 
 	RocknCoder.Pages.page1 = (function () {
-		var pageshow = function () {
-			},
-			pagehide = function () {
-			};
 		return {
-			pageshow: pageshow,
-			pagehide: pagehide
+      pagebeforechange: function(){
+        console.log("Hello from page before change #1");
+      },
+			pageshow: function () {
+      },
+			pagehide: function () {
+      }
 		};
 	}());
 
 	RocknCoder.Pages.page2 = (function () {
-		var pageshow = function () {
-			},
-			pagehide = function () {
-			};
 		return {
-			pageshow: pageshow,
-			pagehide: pagehide
+      pagebeforechange: function(){
+        console.log("Hello from page before change #2");
+      },
+			pageshow: function () {
+      },
+			pagehide: function () {
+      }
 		};
 	}());
 }());
