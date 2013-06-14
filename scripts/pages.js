@@ -8,7 +8,7 @@ var RocknCoder = RocknCoder || {};
 
 	RocknCoder.Pages.page1 = (function () {
 		return {
-      pagebeforechange: function(){
+      pagebeforechange: function(event, data){
         console.log("Hello from page before change #1");
       },
 			pageshow: function () {
